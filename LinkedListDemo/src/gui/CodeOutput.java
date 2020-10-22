@@ -9,7 +9,8 @@ import utils.Utils;
 
 public class CodeOutput extends VBox {
 	
-	Label[] lines;
+	public Label[] lines;
+	public Label comments;
 	int totalLines;
 	int currentLine;
 	double width;
@@ -22,6 +23,11 @@ public class CodeOutput extends VBox {
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 		lines = null;
+		this.comments = new Label();
+		Utils.labelForm(width + Settings.width * .04, Settings.height * .25, this.comments, Pos.BASELINE_LEFT);
+		this.comments.setLayoutX(x - Settings.width * .02);
+		this.comments.setLayoutY(Settings.height * .625);
+		this.comments.setTextFill(Color.CORNFLOWERBLUE);
 	}
 	
 	public boolean containsElements() {
@@ -38,6 +44,25 @@ public class CodeOutput extends VBox {
 		lines = null;
 		totalLines = 0;
 		currentLine = 0;
+	}
+	
+	public void populateComments(String ... comments) {
+		String out = new String();
+		for (int i = 0; i < comments.length; i++) {
+			if (i == 0) {
+				out += "/**\t" + comments[0];
+			}
+			else if (i == comments.length - 1) {
+				out += "\n*/\t" + comments[comments.length - 1];
+			}
+			else {
+				out += "\n*\t" + comments[i];
+			}
+		}
+		this.comments.setText(out);
+		/**
+		 * 
+		 */
 	}
 	
 	public void populateLines(String sourceCode) {

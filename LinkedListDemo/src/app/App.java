@@ -14,8 +14,8 @@ public class App extends Application {
 	
 	@Override
 	public void start(Stage mainStage) throws Exception {
-		//Settings.init(1800, 1200);
-		Settings.init(1400, 800);
+		Settings.init(2000, 1200);
+		//Settings.init(1400, 800);
 		list = new LinkedList();
 	//	list.append("cat");
 	//	list.append("dog");

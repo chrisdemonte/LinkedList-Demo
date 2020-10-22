@@ -69,10 +69,15 @@ public class MainWindow extends Pane{
 				this.codeOutput.populateLines(
 						"public void append(String data) {\n" + 
 						"\tLink newLink = new Link(data);\n" + 
-						"\tthis.lastLink.next = newLink;\n" + 
-						"\tthis.lastLink = newLink;\n" + 
+						"\tthis.last.next = newLink;\n" + 
+						"\tthis.last = newLink;\n" + 
 						"\tthis.numElements++;\n" + 
 						"}");
+				codeOutput.populateComments(
+						"append(String data) is located in Linked List.", 
+						"append takes in a String as a parameter,",
+						"creates a new Link that contains the String,",
+						"and adds it to the END of the Linked List.");
 				this.appendBtn.setDisable(true);
 				this.prependBtn.setDisable(true);
 				this.popBtn.setDisable(true);
@@ -89,11 +94,16 @@ public class MainWindow extends Pane{
 				this.codeOutput.populateLines(
 						"public void prepend (String data) {\n" + 
 						"\tLink newLink = new Link(data);\n" + 
-						"\tif (firstLink.next == null) {\r\t\tlastLink = newLink;\r\t{\n" + 
-						"\tnewLink.next = this.firstLink.next;\n" + 
-						"\tthis.firstLink.next = newLink;\n" + 
+						"\tif (this.first.next == null) {\r\t\tthis.last = newLink;\r\t{\n" + 
+						"\tnewLink.next = this.first.next;\n" + 
+						"\tthis.first.next = newLink;\n" + 
 						"\tthis.numElements++;\n" + 
 						"}");
+				codeOutput.populateComments(
+						"prepend(String data) is located in Linked List.", 
+						"prepend takes in a String as a parameter,",
+						"creates a new Link that contains the String,",
+						"and adds it to the FRONT of the Linked List.");
 				this.appendBtn.setDisable(true);
 				this.prependBtn.setDisable(true);
 				this.popBtn.setDisable(true);
@@ -140,10 +150,14 @@ public class MainWindow extends Pane{
 		});
 		
 		codeOutput = new CodeOutput(Settings.width * .675, Settings.height * .05, Settings.width * .3, Settings.height * .5);
+		codeOutput.populateComments(
+				"The Linked List is initialized with a dummy Link.", 
+				"The logic to add new Links to list is simpler", 
+				"when the list already has 1 element in it.");
 		
-		this.getChildren().addAll(mainCanvas, controlCanvas, entry, appendBtn, prependBtn, popBtn, nextBtn,codeOutput);
+		this.getChildren().addAll(mainCanvas, controlCanvas, entry, appendBtn, prependBtn, popBtn, nextBtn,codeOutput, codeOutput.comments);
 		this.populateWindow();
-		
+	
 	}
 	
 	private void nextEventHandler() {

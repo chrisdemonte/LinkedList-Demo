@@ -20,12 +20,12 @@ import models.Link;
 
 public class Utils {
 
-	public static void labelForm (double width, double height, Labeled label, Pos p ) {
+	public static void labelForm (double width, double height, Labeled label, Pos pos ) {
 		label.setFont(Settings.mainFont);	
 		label.setPrefSize(width, height);
 		label.setMinSize(width, height);
 		label.setMaxSize(width, height);
-		label.setAlignment(p);
+		label.setAlignment(pos);
 	}
 	public static void nodeForm (double x, double y, double width, double height, Color color, Region region) {
 		region.setPrefSize(width, height);
@@ -115,6 +115,12 @@ public class Utils {
 			App.window.getChildren().add(App.window.tempLink);
 			App.window.tempArrow = getArrowFromLink(App.window.tempLink, null);
 			App.window.getChildren().addAll(App.window.tempArrow.shapes);
+			App.window.codeOutput.populateComments(
+					"newLink takes String data as a parameter.", 
+					"newLink also contains a Link next.",
+					"next is the address of the next link in the",
+					"chain, but newLink hasnt been connected to the",
+					"Linked List yet, so it is equal to null.");
 			break;
 		case 2 :
 			ArrowObject arrow = App.window.arrows.get(App.window.arrows.size() - 3);
@@ -124,6 +130,12 @@ public class Utils {
 					getArrowNewNext(App.window.linkObjects.get(App.window.linkObjects.size() - 1), App.window.tempLink));
 			App.window.linkObjects.get(App.window.linkObjects.size() - 1).modNext(App.window.tempLink.getLink());
 			App.window.getChildren().addAll(App.window.arrows.get(App.window.arrows.size() - 3).shapes);
+			App.window.codeOutput.populateComments(
+					"To append newLink to the chain we connect", 
+					"it to the last Link in the Link List.",
+					"The variable last in the Link List points",
+					"to the last Link, \"this.last.next = newLink\"",
+					"is how we connect the newLink to the end list.");
 			break;
 		case 3 :
 			ArrowObject arrow2 = App.window.arrows.get(App.window.arrows.size() - 1);
@@ -133,10 +145,20 @@ public class Utils {
 					getArrowNewLast(App.window.tempLink));
 			App.window.linkedListObject.lastLabel.setText("\tlast = " + App.window.tempLink.getLink().toString().replace("models.Link", ""));
 			App.window.getChildren().addAll(App.window.arrows.get(App.window.arrows.size() - 1).shapes);
+			App.window.codeOutput.populateComments(
+					"Now that newLink is connected, the ", 
+					"the \"last\" Link in the Link List",
+					"is not actually the last Link anymore.",
+					"\"this.last. = newLink\" updates \"last\"",
+					"in the Linked List so it points to newLink");
 			break;
 		case 4 :
 			App.window.linkedListObject.sizeLabel.setTextFill(Color.GREEN);
 			App.window.linkedListObject.modSizeLabel(App.list.size());
+			App.window.codeOutput.populateComments(
+					"At this point, newLink has been successfully",
+					"added to the Linked List, but we cannot",
+					"forget to add to the Link counter.");
 			break;
 		case 5 :
 			if (App.list.size() == 1) {
@@ -148,6 +170,12 @@ public class Utils {
 				App.window.linkedListObject.lastLabel.setText("\tlast = " + App.window.tempLink.getLink().toString().replace("models.Link", ""));
 				App.window.getChildren().addAll(App.window.arrows.get(App.window.arrows.size() - 1).shapes);
 			}
+			App.window.codeOutput.populateComments(
+					"Adding to the Front is more complicated than",
+					"adding to the End. First we must check if the",
+					"list is empty. \"first\" is the dummy, so we ask ",
+					"if \"first.next\" is null. If so, the list is empty.",
+					"newLink will become last, as well as the first.");
 			break;
 		case 6 :
 			
@@ -158,6 +186,12 @@ public class Utils {
 				App.window.tempLink.link.next = App.window.linkObjects.get(1).link;
 				App.window.tempLink.modNext(App.window.linkObjects.get(1).link);
 			}
+			App.window.codeOutput.populateComments(
+					"If the list is empty, first.next (dummy's next)",
+					"equals null, and this line of code does nothing.",
+					"If first.next is a valid Link, this line of code",
+					"connects the rest of the chain to the back of newLink.",
+					"This is only half of the required code though.");
 
 			break;
 		case 7 :
@@ -166,6 +200,12 @@ public class Utils {
 			App.window.linkObjects.get(0).link.next = App.window.tempLink.link;
 			App.window.linkObjects.get(0).modNext(App.window.tempLink.link);
 			App.window.getChildren().addAll(App.window.arrows.get(0).shapes);
+			App.window.codeOutput.populateComments(
+					"The final step to Prepending a Link to Linked List",
+					"is connecting the whole chain to the dummy Link.",
+					"We set \"first.next\" to newLink, and this",
+					"connects the whole Linked List back together.",
+					"Notice how the arrows lead all the way to the end.");
 			break;
 		case 8 :
 			App.list.prepend(App.window.entry.getText());
@@ -180,6 +220,12 @@ public class Utils {
 			App.window.getChildren().add(App.window.tempLink);
 			App.window.tempArrow = getArrowFromLink(App.window.tempLink, null);
 			App.window.getChildren().addAll(App.window.tempArrow.shapes);
+			App.window.codeOutput.populateComments(
+					"newLink takes String data as a parameter.", 
+					"newLink also contains a Link next.",
+					"next is the address of the next link in the",
+					"chain, but newLink hasnt been connected to the",
+					"Linked List yet, so it is equal to null.");
 			break;
 		case -1 : 
 			App.window.linkedListObject.sizeLabel.setTextFill(Color.BLACK);
@@ -190,6 +236,12 @@ public class Utils {
 			App.window.prependBtn.setDisable(false);
 			App.window.popBtn.setDisable(false);
 			App.window.nextBtn.setDisable(true);
+			App.window.codeOutput.populateComments(
+					"A Linked List is different from an Array. In an",
+					"array of strings, the adresses for each string",
+					"is stored in the same place in memory. In a",
+					"Linked List, Links are scattered everywhere. The",
+					"structure comes from how Links point to each other.");
 			
 		}
 	}
